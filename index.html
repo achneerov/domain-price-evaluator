@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Domain Price Evaluator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f4f4f9;
+        }
+        #container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+        }
+        input[type="text"] {
+            width: 300px;
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin-left: 10px;
+            cursor: pointer;
+            border: none;
+            background-color: #007BFF;
+            color: white;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>Domain Price Evaluator</h1>
+        <input type="text" id="domainInput" placeholder="Enter a domain" />
+        <span id="priceDisplay">Price: $0</span>
+        <br />
+        <button id="certificateButton" disabled>Make Certificate</button>
+    </div>
+    <script src="pricing.js"></script>
+    <script>
+        const domainInput = document.getElementById("domainInput");
+        const priceDisplay = document.getElementById("priceDisplay");
+        const certificateButton = document.getElementById("certificateButton");
+
+        domainInput.addEventListener("input", () => {
+            const domain = domainInput.value.trim();
+            if (domain) {
+                const price = calculateDomainPrice(domain);
+                priceDisplay.textContent = `Price: $${price}`;
+                certificateButton.disabled = false;
+
+                certificateButton.onclick = () => {
+                    window.location.href = `certificate.html?domain=${encodeURIComponent(domain)}&price=${price}`;
+                };
+            } else {
+                priceDisplay.textContent = "Price: $0";
+                certificateButton.disabled = true;
+            }
+        });
+    </script>
+</body>
+</html>

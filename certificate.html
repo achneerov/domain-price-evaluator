@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Domain Price Certificate</title>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f4f4f9;
+        }
+        #certificate {
+            background: white;
+            padding: 50px;
+            border: 5px solid black;
+            border-radius: 10px;
+            width: 600px;
+            margin: 0 auto;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 18px;
+            line-height: 1.5;
+        }
+        .price {
+            font-size: 22px;
+            font-weight: bold;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            background-color: #007BFF;
+            color: white;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div id="certificate">
+        <h1>Domain Price Certification</h1>
+        <p>This certifies that the domain:</p>
+        <p class="domain" id="domainName"></p>
+        <p>has been valued at:</p>
+        <p class="price" id="priceValue"></p>
+    </div>
+    <button onclick="window.print()">Print Certificate</button>
+    <script src="pricing.js"></script>
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const domain = params.get("domain");
+
+        if (domain) {
+            // Calculate price using external pricing logic
+            const price = calculateDomainPrice(domain);
+
+            // Populate certificate details
+            document.getElementById("domainName").textContent = domain;
+            document.getElementById("priceValue").textContent = `$${price}`;
+        } else {
+            // Handle invalid or missing domain parameter
+            document.getElementById("certificate").innerHTML = "<p>Invalid certificate data. Please provide a valid domain.</p>";
+        }
+    </script>
+</body>
+</html>
